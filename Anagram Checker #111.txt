@@ -1,0 +1,49 @@
+#include <iostream>
+#include<unordered_map>     
+
+using namespace std;
+
+void countFrequency(string str, unordered_map<char, int> &mpp)      
+{
+    for(int i=0; i<str.length(); i++)
+    {
+        mpp[str[i]]++;    //Count frequency of each element in string
+    }
+
+    return;
+}
+
+int main()
+{
+    string str1, str2;
+
+    cout<<"\nEnter 1st String : "<<endl;
+    cin>>str1;        //Input 1st string
+
+    cout<<"\nEnter 2nd String : "<<endl;
+    cin>>str2;       //Input 2nd string
+
+    if(str1.length() != str2.length())     //Check if the 2 strings are unequal in length
+    {
+        cout<<"\nThe two strings are NOT Anagrams"<<endl;
+        return 0;
+    }
+
+    unordered_map<char, int>mpp1;  //Declare 2 maps
+    unordered_map<char, int>mpp2;
+
+    countFrequency(str1, mpp1);  //Call countFrequency function to count the frequency 
+    countFrequency(str2, mpp2);
+
+    for(int i=0; i<str1.length(); i++)  //Iterate the 1st string
+    {
+        if(mpp1[str1[i]] != mpp2[str1[i]]) //If the frequency of any character in string 1 does not match with that in string 2 then it is not an Anagram
+        {
+            cout<<"\nThe two strings are NOT Anagram of each other"<<endl;
+            return 0;
+        }
+    }
+
+    cout<<"\nThe two strings are Anagram of each other"<<endl;    //If all the frequencies of characters matches then it is an Anagram
+    return 0;
+}

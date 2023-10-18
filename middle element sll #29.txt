@@ -1,0 +1,72 @@
+import java.util.*;
+public class sll {
+    Node head;
+
+    public static class Node {
+        int data;
+        Node next;
+
+        public Node(int data) {
+            this.data = data;
+            next = null;
+        }
+    }
+
+    public sll() {
+        head = null; // Initialize head to null in constructor
+    }
+
+    public sll create(sll list, int data) {
+        Node newnode = new Node(data);
+        if (list.head == null) {
+            list.head = newnode; // Update head when list is empty
+        } else {
+            Node last = list.head;
+            while (last.next != null) {
+                last = last.next;
+            }
+            last.next = newnode;
+        }
+        return list;
+    }
+
+public int getLength() { // To get the size of the single linked list
+    int count = 0;
+    Node current = head;
+    while (current != null) {
+        count++;
+        current = current.next;
+    }
+    return count;
+}
+
+
+public void middleElement(sll list) { // Method to get middle element of the single linked list
+    int length = list.getLength();
+    Node current = list.head;
+
+    if (list.head != null) {
+        for (int i = 0; i < length / 2; i++) {
+            current = current.next;
+        }
+        System.out.println("Middle element is " + current.data);
+    }
+}
+
+    public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int data;
+    sll list = new sll();
+    int ch;
+
+    do {
+        System.out.println("Enter element");
+        data = sc.nextInt();
+        list = list.create(list, data);
+        System.out.println("Do you want to add another node? Enter 1 to continue");
+        ch = sc.nextInt();
+    } while (ch == 1);
+
+    list.middleElement(list); 
+}
+}
