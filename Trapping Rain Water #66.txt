@@ -1,0 +1,58 @@
+#include <iostream>
+#include<cmath>
+
+using namespace std;
+
+int trappingWater(int a[], int n)             //function definition of trappingWater
+{
+    int l[n], r[n];        //Declare two arrays with size
+
+    l[0] = a[0];           //Initialize l[0]
+    r[n-1] = a[n-1];       //Initialize r[n-1]
+
+    for(int i=1; i<n; i++) //Trace the array from left side
+    {
+        l[i] = max(l[i-1], a[i]);     //Store the max element in l[i]
+    }
+
+    for(int i=n-2; i>=0; i--)   //Trace the array from right side
+    {
+        r[i] = max(r[i+1], a[i]);  //store the max element in r[i]
+    }
+
+    int rainWater = 0;     //It will keep track of the units of water trapped
+
+    for(int i=0; i<n; i++)
+    {
+        rainWater += ((min(l[i], r[i])) - a[i]);   //Find minimum between l[i] & r[i] & subtract it with a[i] to get the minimum unit of water trapped by block i
+    }
+
+    return rainWater;     //Return the no. of units of water trapped
+}
+
+int main()
+{
+    int n;
+
+    cout<<"\nEnter the size of array : "<<endl;    //Input size of array
+    cin>>n;
+
+    int a[n];
+
+    cout<<"\nEnter "<<n<<" blocks with positive Numbers\n"<<endl;   //Input size of blocks
+    for(int i=0; i<n; i++)
+    {
+        cout<<"Enter "<<i+1<<" block : ";
+        cin>>a[i];
+
+        if(a[i] < 0)      //Check if the block entered has negative value
+        {
+            cout<<"\nInvalid Input!"<<endl;
+            return 0;
+        }
+    }
+
+    cout<<"\n"<<trappingWater(a, n)<<" units of Water can be trapped with the given Blocks"<<endl;   //Print the units of rain water trapped
+
+    return 0;
+}
